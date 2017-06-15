@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="custom">
+
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!-- <ion-title text-wrap>
+      Add Showcased Item
+    </ion-title> -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!postData.image && !postData.link">
+
+      <h2>Add Showcased Item</h2>
+      <br>
+      <ion-item text-wrap>
+        <h2>Upload Ideas</h2>
+        <p>
+          <strong>Videos, images:</strong>
+          A dance performance you did, an award you won.
+          <br>
+          <strong>Links:</strong>
+          An awesome article about your passion, a blog you wrote / were featured in, a website you helped build.
+        </p>
+      </ion-item>
+      <br><br>
+      <!-- <ion-item>
+        <ion-textarea rows="3" placeholder="Briefly describe your Showcased item" [(ngModel)]="postData.text"> </ion-textarea>
+      </ion-item> -->
+
+      <div class="button-row">
+        <button ion-button color="purple" icon-left block (click)="imageShare()">
+          <ion-icon name="image"></ion-icon> Upload an item
+        </button>
+        <br>
+        <button ion-button color="positive" icon-left block (click)="postData.link = true">
+          <ion-icon name="link"></ion-icon> Add a link
+        </button>
+      </div>
+
+  </ion-list>
+  <ion-list class="second-step" *ngIf="postData.image || postData.link">
+
+      <div>
+        <img *ngIf="postData.image" src="{{postData.image}}" />
+        <img *ngIf="postData.link" src="assets/website.png" />
+      </div>
+
+      <ion-item *ngIf="postData.link">
+        <ion-label color="primary">https://</ion-label>
+        <ion-input type="text" placeholder="Website URL" [(ngModel)]="postData.url" name="url"></ion-input>
+      </ion-item>
+
+      <!-- <div class="close-icon" (click)="removeItem()">
+        <ion-icon name="close"></ion-icon>
+      </div> -->
+
+      <h4>What passion does this relate to?</h4>
+      <button color="silver" [ngClass]="postData.passions && postData.passions[passion] ? 'color-' + generateAvatarColor(passion):'light'" ion-button icon-left *ngFor="let passion of passionArrayOfKeys" (click)="togglePassion(passion)">
+        <ion-icon name="heart"></ion-icon> {{ passion }}
+      </button>
+      <br><br>
+      <button ion-button block color="purple" (click)="addPost()" [disabled]="!postData.passions || !postData.image && !postData.url">
+        Done
+      </button>
+  </ion-list>
+</ion-content>

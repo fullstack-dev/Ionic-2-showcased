@@ -1,0 +1,49 @@
+profile-page {
+
+  .profileCover {
+      height:200px;
+  }
+
+  .item-inner {
+    // border:none !important;
+  }
+
+  ion-item:nth-child(odd) {
+    // background: #f9f9f9 !important;
+  }
+
+  ion-col {
+    padding: 0px;
+
+    button {
+      margin-left:0px;
+    }
+  }
+
+  ion-spinner{
+    margin-top: 20px !important;
+    width:100%;
+    margin: auto;
+  }
+
+  .avatar {
+    margin-top:-40px;
+    margin-left: 15px;
+    height: 90px;
+    width: 90px;
+    border:5px solid white;
+    border-radius: 100px;
+
+    img {
+      border-radius: 100px;
+    }
+  }
+
+  .row-edit {
+    text-align: right;
+    margin-top: -35px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+  }
+
+}

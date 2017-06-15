@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-navbar color="custom">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="addPost()">
+        <ion-icon ios="md-add" md="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Showcased</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToChatTab()">
+        <ion-icon name="chatbubbles"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+   <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing..."></ion-refresher-content>
+ </ion-refresher>
+
+  <div class="welcomeText" *ngIf="showcasedItems.length < 1">
+    <h1>Welcome to Showcased!</h1>
+    <br>
+    <p> This is where you will receive updates about the things you love</p>
+    <br>
+    <button *ngIf="showcasedItems.length < 1 && !postsLoading" ion-button  color="danger" [navPush]="PassionsPage" [navParams]="{tutorial:true}">Let's get you started by <br>creating your profile</button>
+  </div>
+
+  <ion-spinner *ngIf="postsLoading"></ion-spinner>
+
+  <ion-item class="card-showcase" *ngFor="let item of showcasedItems" [ngClass]="{'hide': item.uid == userData.uid}" text-wrap  (click)="openItem(item)">
+
+    <!-- ITEM CARDS -->
+    <ion-item text-wrap *ngIf="!item.uid"  (click)="openItem(item)">
+      <ion-avatar item-left>
+        <img src="assets/profile-default.jpg" *ngIf="!item.userData.profilePic">
+        <img src="{{item.userData.profilePic}}" *ngIf="item.userData.profilePic">
+      </ion-avatar>
+      <h2>{{ item.userData.fullName }} showcased a new item <ion-note item-end>{{item.created_at | amTimeAgo }}</ion-note></h2>
+    </ion-item>
+    <ion-row *ngIf="!item.uid">
+      <ion-col width-20></ion-col>
+      <ion-col width-80>
+        <img src="{{item.image}}" *ngIf="item.image"  (click)="openItem(item)">
+        <img src="assets/website.png" *ngIf="item.url"  (click)="openItem(item)">
+        <div (click)="openItem(item)">
+          <button ion-button color="assertive" icon-left *ngFor="let passion of item.arrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+            <ion-icon name="heart"></ion-icon> {{ passion }}
+          </button>
+        </div>
+        <div class="reportDiv"><a (click)="reportContent(item)">Report content</a></div>
+      </ion-col>
+    </ion-row>
+
+
+    <!-- USER CARDS -->
+    <ion-item text-wrap *ngIf="item.uid" (click)="openItem(item)">
+      <ion-avatar item-left>
+        <img src="assets/profile-default.jpg" *ngIf="!item.profilePic">
+        <img src="{{item.profilePic}}" *ngIf="item.profilePic">
+      </ion-avatar>
+      <h2 *ngIf="item.uid != userData.uid">{{ item.fullName }} shares a common passion with you <ion-note item-end>{{item.created_at | amTimeAgo }}</ion-note></h2>
+      <h2 *ngIf="item.uid == userData.uid">A common passion you share with yourself :P</h2>
+    </ion-item>
+    <ion-row *ngIf="item.uid">
+      <ion-col width-20></ion-col>
+      <ion-col width-80 class="row-match">
+        <ion-item style="padding:0px;" text-wrap (click)="openItem(item)">
+          <div *ngFor="let passion of item.arrayOfKeys;" class="match-row">
+              <button ion-button color="assertive" icon-left *ngIf="userData.arrayOfKeys.includes(passion)" [ngClass]="'color-' + generateAvatarColor(passion)">
+                <ion-icon name="heart"></ion-icon> {{ passion }}
+              </button>
+              <ion-icon class="icon-link" name="swap" *ngIf="userData.arrayOfKeys.includes(passion)"></ion-icon>
+              <button ion-button color="assertive" icon-left *ngIf="userData.arrayOfKeys.includes(passion)"  [ngClass]="'color-' + generateAvatarColor(passion)">
+                <ion-icon name="heart"></ion-icon> {{ passion }}
+              </button>
+          </div>
+        </ion-item>
+        <div class="reportDiv"><a (click)="reportUser(item)">Report user</a></div>
+      </ion-col>
+    </ion-row>
+
+  </ion-item>
+
+</ion-content>

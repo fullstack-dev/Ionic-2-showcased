@@ -1,0 +1,117 @@
+<!--
+  Generated template for the Chats page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="custom">
+    <ion-segment color="white" [(ngModel)]="segmentSelected" (ionChange)="updateSchedule()">
+      <ion-segment-button value="recent">
+        Recent
+      </ion-segment-button>
+      <ion-segment-button value="online">
+        Available
+      </ion-segment-button>
+      <ion-segment-button value="offline">
+        Others
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+   <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-toolbar class="toolbar-status">
+    <ion-buttons left>
+      My Status
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button outline (click)="presentPopover($event)" [color]="userData && userData.status == 0 ? 'danger' : 'primary'">
+        <ion-icon *ngIf="userData && userData.status == 1" name="notifications"></ion-icon>
+        <ion-icon *ngIf="userData && userData.status == 0" name="notifications-off"></ion-icon>
+        <ion-icon *ngIf="userData && userData.status == 2" name="time"></ion-icon>
+        {{ userData && userData.status == 0 ? 'Not available' : '' }}
+        {{ userData && userData.status == 1 ? 'Available now' : '' }}
+        {{ userData && userData.status == 2 ? 'Scheduled availability' : '' }}
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+  <ion-grid *ngIf="segmentSelected == 'online'">
+
+    <ion-spinner *ngIf="onlineCollaboratorsLoading"></ion-spinner>
+
+    <ion-row wrap>
+      <ion-col width-50 *ngFor="let user of onlineCollaborators" (click)="goToChat(user)">
+        <ion-avatar item-left>
+          <img src="assets/profile-default.jpg" *ngIf="!user.profilePic"/>
+          <img src="{{user.profilePic}}" *ngIf="user.profilePic">
+        </ion-avatar>
+        <h2>{{user.fullName}}</h2>
+        <ion-item>
+
+          <div *ngFor="let passion of user.arrayOfKeys;" class="match-row">
+            <button ion-button color="assertive" icon-left *ngIf="userData.arrayOfKeys.includes(passion)" [ngClass]="'color-' + generateAvatarColor(passion)">
+              <ion-icon name="heart"></ion-icon> {{ passion }}
+            </button>
+          </div>
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="segmentSelected == 'offline'">
+
+    <ion-spinner *ngIf="offlineCollaboratorsLoading"></ion-spinner>
+
+    <ion-row wrap>
+      <ion-col width-50 *ngFor="let user of offlineCollaborators" (click)="goToChat(user)">
+        <ion-avatar item-left>
+          <img src="assets/profile-default.jpg" *ngIf="!user.profilePic"/>
+          <img src="{{user.profilePic}}" *ngIf="user.profilePic">
+        </ion-avatar>
+        <h2>{{user.fullName}}</h2>
+        <ion-item>
+
+          <div *ngFor="let passion of user.arrayOfKeys;" class="match-row">
+            <button ion-button color="assertive" icon-left *ngIf="userData.arrayOfKeys.includes(passion)" [ngClass]="'color-' + generateAvatarColor(passion)">
+              <ion-icon name="heart"></ion-icon> {{ passion }}
+            </button>
+          </div>
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div *ngIf="segmentSelected == 'recent'">
+    <ion-spinner *ngIf="recentChatsLoading"></ion-spinner>
+    <ion-item *ngFor="let user of recentChats" (click)="goToChat(user)">
+      <ion-avatar item-left>
+        <img src="assets/profile-default.jpg" *ngIf="!user.profilePic"/>
+        <img src="{{user.profilePic}}" *ngIf="user.profilePic">
+      </ion-avatar>
+      <h2>{{user.fullName}}</h2>
+      <p>
+        <span style="color:#999;font-weight:normal;" *ngIf="user.isRead==0 && user.isType==0"><strong>{{user.message}}</strong></span>
+        <span style="color:#999;font-weight:normal;" *ngIf="user.isRead==1 && user.isType==0">{{user.message}}</span>
+        <span style="color:#999;font-weight:normal;" *ngIf="user.isRead==0 && user.isType==1"><strong>  <ion-icon name="camera"></ion-icon> Image</strong></span>
+        <span style="color:#999;font-weight:normal;" *ngIf="user.isRead==1 && user.isType==1"><ion-icon name="camera"></ion-icon> Image</span>
+      </p>
+    </ion-item>
+  </div>
+</ion-content>

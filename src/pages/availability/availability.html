@@ -1,0 +1,34 @@
+<!--
+  Generated template for the AvailabilityPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="custom">
+    <ion-title>Availability to Collaborate</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list *ngIf="userData">
+    <h5>Please indicate day & time:</h5>
+    <ion-item *ngFor="let day of week">
+      <ion-label><h5>{{ day }}</h5></ion-label>
+      <ion-range dualKnobs="true" [(ngModel)]="userData.availability[day]" min="0" max="24" step="1" (ionChange)="updateRange()">
+        <ion-label range-left>{{ userData.availability[day].lower }}:00h</ion-label>
+        <ion-label range-right>{{userData.availability[day].upper}}:00h</ion-label>
+      </ion-range>
+    </ion-item>
+    <div class="padding">
+      <button ion-button block color="purple" (click)="updateAvailability()">
+        Let's do it
+      </button>
+    </div>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,51 @@
+<!--
+  Generated template for the Register page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light">
+    <!-- <ion-title>Create Account</ion-title> -->
+ </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce>
+  <form [formGroup]="registerForm">
+    <ion-slides>
+      <ion-slide *ngFor="let slide of formSlides" padding>
+        <br>
+        <!-- <ion-toolbar><ion-buttons end><button ion-button color="primary"></button></ion-buttons></ion-toolbar> -->
+        <!-- <h2 class="slide-title" [innerHTML]="slide.title"></h2> -->
+        <h2 [innerHTML]="slide.description"></h2>
+        <br>
+        <!-- Error message --->
+        <div *ngIf="slide.model != 'age' && !registerForm.controls[slide.model].valid && registerForm.controls[slide.model].touched" class="error-box">{{slide.model}} is required</div>
+        <ion-item>
+          <ion-input type="{{slide.type}}" placeholder="{{slide.placeholder}}" formControlName="{{slide.model}}" value=""></ion-input>
+          <ion-icon color="secondary" *ngIf="registerForm.controls[slide.model].valid" name="checkmark-circle" item-right></ion-icon>
+        </ion-item>
+        <br>
+        <button ion-button block (click)="nextSlide()" [disabled]="slide.model != 'age' && !registerForm.controls[slide.model].valid">Next</button>
+      </ion-slide>
+      <ion-slide padding>
+        <br>
+        <!-- <ion-toolbar><ion-buttons end><button ion-button color="primary"></button></ion-buttons></ion-toolbar> -->
+        <!-- <h2 class="slide-title" [innerHTML]="slide.title"></h2> -->
+        <h2 [innerHTML]="'Forgotten already?'"></h2>
+        <br>
+        <!-- Error message --->
+        <div *ngIf="registerForm.controls['password'].value != registerForm.controls['confirmPassword'].value && registerForm.controls['confirmPassword'].touched" class="error-box">Passwords do not match</div>
+        <ion-item>
+          <ion-input type="{{'password'}}" placeholder="{{'Confirm Password'}}" formControlName="{{'confirmPassword'}}" value=""></ion-input>
+          <ion-icon color="secondary" *ngIf="registerForm.controls['password'].value == registerForm.controls['confirmPassword'].value" name="checkmark-circle" item-right></ion-icon>
+        </ion-item>
+        <br>
+        <button ion-button block (click)="nextSlide()" [disabled]="registerForm.controls['password'].value != registerForm.controls['confirmPassword'].value">Next</button>
+      </ion-slide>
+    </ion-slides>
+  </form>
+</ion-content>

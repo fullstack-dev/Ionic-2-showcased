@@ -1,0 +1,55 @@
+<!--
+  Generated template for the PassionsPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+  <ion-navbar color="white">
+    <ion-title>Passions</ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-content padding>
+  <br><br>
+  <!-- If no passions have been added then show this placeholder text -->
+  <div class="welcomeText" *ngIf="userData && !userData.passions && !showPassionAdder && !tutorial">
+    <p> This is where you will see all the information that exists on our network, about a specific passion of yours!</p>
+    <br>
+    <h2>Seeing is believing</h2>
+    <br>
+    <button ion-button color="danger" (click)="showPassionAdder = true">Add a passion to your profile <br>to see how this works</button>
+  </div>
+  <div *ngIf="showPassionAdder || userData && userData.passions || tutorial">
+    <h2 *ngIf="!tutorial">It's all about you</h2>
+
+    <ion-list *ngIf="userData && userData.passions">
+      <button ion-button color="assertive" block icon-left class="icon-absolute-left" *ngFor="let passion of passionArrayOfKeys" [navPush]="PassionDetailPage" [navParams]="passion" [ngClass]="'color-' + generateAvatarColor(passion)">
+        <ion-icon class="start" name="heart"></ion-icon> {{ passion }} <ion-icon class="end" name="arrow-forward"></ion-icon>
+      </button>
+    </ion-list>
+
+    <div *ngIf="tutorial" class="number-round">1</div>
+    <h4 style="display:inline;" *ngIf="tutorial"> &nbsp;{{ userData && userData.passions ? 'What else do you enjoy?':'What do you enjoy?'}}</h4>
+
+    <h5 *ngIf="!tutorial">{{ userData && userData.passions ? 'What else do you enjoy?':'What do you enjoy?'}}</h5>
+    <p>You can add up to 10 passions that you want to spend time on</p>
+
+
+    <button *ngIf="tutorial && this.passionArrayOfKeys && this.passionArrayOfKeys.length > 1" color="secondary" [navPush]="TutorialPage" ion-button>Done for now</button>
+    <div style="height:20px;width:100px;" *ngIf="tutorial && this.passionArrayOfKeys && this.passionArrayOfKeys.length > 1"></div>
+
+    <ion-searchbar (ionInput)="getItems($event)" [showCancelButton]="true"></ion-searchbar>
+
+    <ion-list>
+      <ion-item *ngFor="let passion of passions">
+        {{ passion }}
+        <ion-icon name="add" item-right (click)="addPassion(passion)"></ion-icon>
+      </ion-item>
+      <!-- <ion-item text-wrap>
+        Create new (needs admin approval)
+        <ion-icon name="add" item-right></ion-icon>
+      </ion-item> -->
+    </ion-list>
+  </div>
+</ion-content>

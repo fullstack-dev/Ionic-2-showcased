@@ -1,0 +1,180 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary: #105294,
+  secondary: #6DA94E,
+  danger: #CC252A,
+  light: #FFFFC0,
+  dark: #8d9396,
+  custom: #DD6467,
+  white: #ffffff,
+  purple:#721748,
+  silver:#C0C0C0
+);
+
+.ion-ios-handshake-outline,
+.ion-md-handshake {
+  content: url('../assets/handshake-icon-1.png');
+  height: 38px;
+  opacity: 0.5;
+}
+
+.ion-ios-handshake {
+  content: url('../assets/handshake-icon-1.png');
+  height: 38px;
+  opacity: 1;
+}
+
+.scroll-content {
+  background-color:#fff;
+}
+
+h1 {
+  font-weight: 900 !important;
+  letter-spacing: 2px;
+  color: #444;
+}
+
+h2, h3, .toolbar-title, button {
+  font-weight: 900 !important;
+  letter-spacing: 0.5px;
+  color: #444;
+}
+
+h4, h5, p, input, .toast-message {
+  font-weight: 600 !important;
+}
+
+.welcomeText {
+  padding:20px;
+
+  button {
+    padding:20px;
+    line-height: 20px;
+    height: 65px;
+    text-align: left;
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+.card-showcase {
+
+  // ion-avatar {
+  //   margin-left: -14px !important;
+  //   img {
+  //     height: 40px !important;
+  //     width: 40px !important;
+  //   }
+  // }
+
+  .note {
+    font-size: 14px !important;
+    letter-spacing: 0px !important;
+  }
+
+  ion-item {
+    background: transparent;
+  }
+
+  ion-item:first-of-type {
+    .item-inner {
+      border-bottom:0px solid white !important;
+    }
+  }
+
+  ion-col {
+    padding: 0px;
+
+    img {
+        border-radius: 5px;
+    }
+
+    button {
+      margin-left:0px;
+    }
+
+    .icon-link {
+      position: relative;
+      top:7px;
+    }
+
+    // .match-row {
+    //   display: none;
+    // }
+    //
+    // .match-row:first-of-type {
+    //   display: block !important;
+    // }
+    //
+    // .match-row:only-of-type {
+    //   display: block !important;
+    // }
+    //
+    // .match-row:nth-child(1) {
+    //   display: block !important;
+    // }
+
+  }
+}
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+$ionicons-font-path: "../assets/fonts";
+@import "ionicons";

@@ -1,0 +1,63 @@
+<!--
+  Generated template for the PassionDetailPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="custom">
+    <ion-title><ion-icon name="heart"></ion-icon> {{passion}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-list-header text-wrap [navPush]="PassionItemsPage" [navParams]="passion">
+      <h3>Cool things you should check out</h3>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-list-header>
+    <ion-spinner *ngIf="postsLoading"></ion-spinner>
+    <ion-item class="card-showcase" *ngFor="let item of showcasedItems" (click)="openItem(item)" text-wrap>
+      <ion-item text-wrap>
+        <ion-avatar item-left>
+          <img src="assets/logo.png" *ngIf="!item.userData.profilePic">
+          <img src="{{item.userData.profilePic}}" *ngIf="item.userData.profilePic">
+        </ion-avatar>
+        <h2>{{ item.userData.fullName }} showcased a new item</h2>
+      </ion-item>
+      <ion-row>
+        <ion-col width-20></ion-col>
+        <ion-col width-80>
+          <img src="{{item.image}}" *ngIf="item.image">
+          <img src="assets/website.png" *ngIf="item.url">
+          <div>
+            <button ion-button color="assertive" icon-left *ngFor="let passion of item.arrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+              <ion-icon name="heart"></ion-icon> {{ passion }}
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header text-wrap [navPush]="PassionUsersPage" [navParams]="passion">
+      <h3>Awesome people to collaborate with</h3>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-list-header>
+    <ion-spinner *ngIf="usersLoading"></ion-spinner>
+    <ion-item *ngFor="let item of users" (click)="openItem(item)">
+      <ion-avatar item-left>
+        <img src="assets/profile-default.jpg" *ngIf="!item.profilePic">
+        <img src="{{item.profilePic}}" *ngIf="item.profilePic">
+      </ion-avatar>
+      <h2>{{item.fullName}}</h2>
+      <p>{{item.aboutSelf}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

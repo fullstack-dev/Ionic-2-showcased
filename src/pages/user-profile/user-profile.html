@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar color="custom">
+    <ion-title>
+      {{ selectedUserData ? selectedUserData.fullName : 'User profile'}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only icon-right (click)="goToChat(selectedUserData)">
+        <ion-icon name="chatbubbles"></ion-icon>
+      </button>
+   </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="selectedUserData">
+    <div class="profileCover" [ngStyle]="{'background-image': selectedUserData.coverPhoto ? 'url('+selectedUserData.coverPhoto+')':'url(assets/profile-default.jpg)', 'background-size':'cover'}"></div>
+    <div class="avatar">
+      <img src="assets/profile-default.jpg" *ngIf="!selectedUserData.profilePic">
+      <img src="{{selectedUserData.profilePic}}" *ngIf="selectedUserData.profilePic">
+    </div>
+    <div class="row row-edit">
+      <button class="" ion-button outline icon-right small (click)="goToChat(selectedUserData)">Collaborate</button>
+    </div>
+    <ion-item text-wrap>
+        <h2>{{selectedUserData.fullName}}</h2>
+        <p>{{ selectedUserData.aboutSelf }}</p>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <h3>A few of {{ selectedUserData.fullName }}'s favourite things</h3>
+      <ion-col>
+        <button ion-button color="secondary" icon-left *ngFor="let passion of passionsArrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+          <ion-icon name="heart"></ion-icon> {{ passion }}
+        </button>
+      </ion-col>
+    </ion-item>
+
+    <br><br>
+
+    <ion-item-divider icon-right color="white" (click)="goToChat(selectedUserData)" *ngIf="expression">
+      <h2>Collaborating with {{ selectedUserData.fullName}}</h2>
+    </ion-item-divider>
+    <ion-item text-wrap *ngIf="expression">
+      <h3>{{ selectedUserData.fullName}} is looking for help on</h3>
+      <ion-col>
+        <button ion-button color="primary" icon-left>
+          <ion-icon name="umbrella"></ion-icon> Golf
+        </button>
+        <button ion-button color="primary" icon-left>
+          <ion-icon name="umbrella"></ion-icon> UX/Design
+        </button>
+      </ion-col>
+    </ion-item>
+    <ion-item *ngIf="expression">
+      <h3>{{ selectedUserData.fullName}} can help with</h3>
+      <ion-col>
+        <button ion-button color="dark" icon-left>
+          <ion-icon name="link"></ion-icon> Marketing
+        </button>
+        <button ion-button color="dark" icon-left>
+          <ion-icon name="link"></ion-icon> Piano lessons
+        </button>
+      </ion-col>
+    </ion-item>
+
+    <br><br>
+
+    <ion-item-divider color="white">
+      <h2>{{ selectedUserData.fullName}}'s Showcase</h2>
+    </ion-item-divider>
+    <ion-spinner *ngIf="postsLoading"></ion-spinner>
+    <ion-item *ngIf="showcasedItems.length < 1 && !postsLoading"><h2><ion-note>No Showcased Items</ion-note></h2></ion-item>
+    <ion-item class="card-showcase" *ngFor="let item of showcasedItems" text-wrap>
+      <ion-col>
+        <img src="{{item.image}}" *ngIf="item.image">
+        <img src="assets/website.png" *ngIf="item.url">
+        <div>
+          <button ion-button color="assertive" icon-left *ngFor="let passion of item.arrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+            <ion-icon name="heart"></ion-icon> {{ passion }}
+          </button>
+        </div>
+      </ion-col>
+    </ion-item>
+    <br>
+  </ion-list>
+  <!-- <div class="reportDiv"><a (click)="reportUser(item)">Report user</a></div> -->
+</ion-content>

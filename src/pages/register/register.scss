@@ -1,0 +1,35 @@
+page-register {
+
+  .toolbar-background {
+      border:none !important;
+  }
+
+  .slide-zoom {
+    height: 100%;
+    text-align: left !important;
+
+    .item {
+        padding-left: 0px;
+    }
+
+  }
+
+  .slide-title {
+    margin-top: 2.8rem;
+  }
+
+  .scroll-content{
+    overflow:hidden;
+    padding: 20px !important;
+    background-color:#FFFFC0;
+  }
+
+  .error-box{
+    font-size: 12px;
+    color: rgba(255, 0, 0, 0.60);
+  }
+
+  ion-item {
+    background: #FFFFC0 !important;
+  }
+}

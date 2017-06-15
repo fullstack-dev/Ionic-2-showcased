@@ -1,0 +1,27 @@
+page-edit-profile {
+
+  .profileCover {
+      height:200px;
+  }
+
+  .avatar {
+    margin-top:-40px;
+    margin-left: 15px;
+    height: 90px;
+    width: 90px;
+    border:5px solid white;
+    border-radius: 100px;
+
+    img {
+      border-radius: 100px;
+    }
+  }
+
+  .row-edit {
+    text-align: right;
+    margin-top: -35px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+  }
+
+}

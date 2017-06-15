@@ -1,0 +1,42 @@
+page-login {
+
+  .scroll-content {
+    background-color: #184F5C !important;
+    color: white;
+  }
+
+  h1 {
+    font-size: 30px !important;
+    color: white;
+  }
+
+  ion-content {
+    padding:40px !important;
+  }
+
+  text-align: center !important;
+
+  ion-item {
+    border: 1px solid #e0e0e0 !important;
+  }
+
+  .item-inner {
+    border: none !important;
+  }
+
+  button, ion-list, ion-grid {
+    width: 250px !important;
+    margin: 0px auto !important;
+  }
+
+  ion-grid {
+    width: 275px !important;
+  }
+
+  .logo-icon {
+    height: 100px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+
+}

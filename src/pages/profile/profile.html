@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-navbar color="custom">
+    <ion-title>
+      My Profile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="userData">
+    <div class="profileCover" [ngStyle]="{'background-image': userData.coverPhoto ? 'url('+userData.coverPhoto+')':'url(assets/profile-default.jpg)', 'background-size':'cover'}"></div>
+    <div class="avatar">
+      <img src="assets/profile-default.jpg" *ngIf="!userData.profilePic">
+      <img src="{{userData.profilePic}}" *ngIf="userData.profilePic">
+    </div>
+    <div class="row row-edit">
+      <button class="" ion-button outline icon-right small (click)="editProfile()">Edit profile</button>
+    </div>
+    <ion-item text-wrap>
+        <h2>{{userData.fullName}}</h2>
+        <p>{{ userData.aboutSelf }}</p>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <h3>A few of {{ userData.fullName }}'s favourite things</h3>
+      <ion-col>
+        <button ion-button color="secondary" icon-left *ngFor="let passion of passionsArrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+          <ion-icon name="heart"></ion-icon> {{ passion }}
+        </button>
+      </ion-col>
+    </ion-item>
+
+    <br>
+
+    <ion-item-divider color="white" *ngIf="expression">
+      <h2>Collaborating with {{ userData.fullName}}</h2>
+    </ion-item-divider>
+    <ion-item text-wrap *ngIf="expression">
+      <h3>{{ userData.fullName}} is looking for help on</h3>
+      <ion-col>
+        <button ion-button color="primary" icon-left>
+          <ion-icon name="umbrella"></ion-icon> Golf
+        </button>
+        <button ion-button color="primary" icon-left>
+          <ion-icon name="umbrella"></ion-icon> UX/Design
+        </button>
+      </ion-col>
+    </ion-item>
+    <ion-item *ngIf="expression">
+      <h3>{{ userData.fullName}} can help with</h3>
+      <ion-col>
+        <button ion-button color="dark" icon-left>
+          <ion-icon name="link"></ion-icon> Marketing
+        </button>
+        <button ion-button color="dark" icon-left>
+          <ion-icon name="link"></ion-icon> Piano lessons
+        </button>
+      </ion-col>
+    </ion-item>
+
+    <br>
+
+    <ion-item-divider color="white">
+      <h2>{{ userData.fullName}}'s Showcase</h2>
+    </ion-item-divider>
+    <ion-spinner *ngIf="postsLoading"></ion-spinner>
+    <ion-item *ngIf="showcasedItems.length < 1 && !postsLoading"><h2><ion-note>No Showcased Items</ion-note></h2></ion-item>
+    <ion-item class="card-showcase" *ngFor="let item of showcasedItems" text-wrap>
+      <ion-col>
+        <img src="{{item.image}}" *ngIf="item.image">
+        <img src="assets/website.png" *ngIf="item.url">
+        <div>
+          <button ion-button color="assertive" icon-left *ngFor="let passion of item.arrayOfKeys" [ngClass]="'color-' + generateAvatarColor(passion)">
+            <ion-icon name="heart"></ion-icon> {{ passion }}
+          </button>
+        </div>
+      </ion-col>
+    </ion-item>
+    <br>
+  </ion-list>
+</ion-content>
